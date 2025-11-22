@@ -98,8 +98,6 @@ WAV2VEC2_MODELS=(
 ### DO NOT EDIT BELOW HERE UNLESS YOU KNOW WHAT YOU ARE DOING ###
 
 function provisioning_start() {
-    source /venv/main/bin/activate
-
     provisioning_print_header
     provisioning_get_apt_packages
     provisioning_get_default_workflow
@@ -107,38 +105,39 @@ function provisioning_start() {
     provisioning_get_comfyui_nodes
     provisioning_get_pip_packages
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/ckpt" \
+        "/opt/ComfyUI/models/ckpt" \
         "${CKPT_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/unet" \
+        "/opt/ComfyUI/models/unet" \
         "${UNET_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/lora" \
+        "/opt/ComfyUI/models/lora" \
         "${LORA_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/controlnet" \
+        "/opt/ComfyUI/models/controlnet" \
         "${CONTROLNET_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/vae" \
+        "/opt/ComfyUI/models/vae" \
         "${VAE_MODELS[@]}"
 	provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/text_encoders" \
+        "/opt/ComfyUI/models/text_encoders" \
         "${TEXT_ENCODERS[@]}"
 	provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/diffusion_models" \
+        "/opt/ComfyUI/models/diffusion_models" \
         "${DIFFUSION_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/clip" \
+        "/opt/ComfyUI/models/clip" \
         "${CLIP_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/clip_vision" \
+        "/opt/ComfyUI/models/clip_vision" \
         "${CLIP_VISION_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/esrgan" \
+        "/opt/ComfyUI/models/esrgan" \
         "${ESRGAN_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/wav2vec2" \
+        "/opt/ComfyUI/models/wav2vec2" \
         "${WAV2VEC2_MODELS[@]}"
+
     provisioning_print_end
 }
 
@@ -148,7 +147,7 @@ function pip_install() {
 
 function provisioning_get_apt_packages() {
     if [[ -n $APT_PACKAGES ]]; then
-            sudo $APT_INSTALL ${APT_PACKAGES[@]}
+            sudo apt-get install -y ${APT_PACKAGES[@]}
     fi
 }
 
@@ -208,6 +207,7 @@ function provisioning_get_models() {
 function provisioning_print_header() {
     printf "\n##############################################\n"
     printf "\nProvisioning started...\n"
+    source /venv/main/bin/activate
 }
 
 function provisioning_print_end() {
