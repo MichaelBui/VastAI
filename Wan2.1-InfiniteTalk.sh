@@ -44,54 +44,54 @@ COMFYUI_NODES=(
 )
 
 CKPT_MODELS=(
-    # "model url to be downloaded to /opt/ComfyUI/models/ckpt"
+    # "model url to be downloaded to ${WORKSPACE}/ComfyUI/models/ckpt"
 )
 
 DIFFUSION_MODELS=(
-    # "model url to be downloaded to /opt/ComfyUI/models/diffusion_models"
+    # "model url to be downloaded to ${WORKSPACE}/ComfyUI/models/diffusion_models"
     "https://huggingface.co/city96/Wan2.1-I2V-14B-480P-gguf/resolve/main/wan2.1-i2v-14b-480p-Q4_0.gguf?download=true"
     "https://huggingface.co/Kijai/WanVideo_comfy_GGUF/resolve/main/InfiniteTalk/Wan2_1-InfiniteTalk_Single_Q8.gguf?download=true"
     "https://huggingface.co/Kijai/MelBandRoFormer_comfy/resolve/main/MelBandRoformer_fp16.safetensors?download=true"
 )
 
 UNET_MODELS=(
-    # "model url to be downloaded to /opt/ComfyUI/models/unet"
+    # "model url to be downloaded to ${WORKSPACE}/ComfyUI/models/unet"
 )
 
 LORA_MODELS=(
-    # "model url to be downloaded to /opt/ComfyUI/models/loras"
+    # "model url to be downloaded to ${WORKSPACE}/ComfyUI/models/loras"
     "https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/Lightx2v/lightx2v_I2V_14B_480p_cfg_step_distill_rank16_bf16.safetensors?download=true"
 )
 
 VAE_MODELS=(
-    # "model url to be downloaded to /opt/ComfyUI/models/vae"
+    # "model url to be downloaded to ${WORKSPACE}/ComfyUI/models/vae"
     "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/vae/wan_2.1_vae.safetensors?download=true"
 )
 
 TEXT_ENCODERS=(
-    # "model url to be downloaded to /opt/ComfyUI/models/text_encoders"
+    # "model url to be downloaded to ${WORKSPACE}/ComfyUI/models/text_encoders"
     "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors?download=true"
 )
 
 CLIP_MODELS=(
-    # "model url to be downloaded to /opt/ComfyUI/models/clip"
+    # "model url to be downloaded to ${WORKSPACE}/ComfyUI/models/clip"
 )
 
 CLIP_VISION_MODELS=(
-    # "model url to be downloaded to /opt/ComfyUI/models/clip_vision"
+    # "model url to be downloaded to ${WORKSPACE}/ComfyUI/models/clip_vision"
     "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/clip_vision/clip_vision_h.safetensors?download=true"
 )
 
 ESRGAN_MODELS=(
-    # "model url to be downloaded to /opt/ComfyUI/models/esrgan"
+    # "model url to be downloaded to ${WORKSPACE}/ComfyUI/models/esrgan"
 )
 
 CONTROLNET_MODELS=(
-    # "model url to be downloaded to /opt/ComfyUI/models/controlnet"
+    # "model url to be downloaded to ${WORKSPACE}/ComfyUI/models/controlnet"
 )
 
 WAV2VEC2_MODELS=(
-    # "model url to be downloaded to /opt/ComfyUI/models/wav2vec2"
+    # "model url to be downloaded to ${WORKSPACE}/ComfyUI/models/wav2vec2"
     "https://huggingface.co/Kijai/wav2vec2_safetensors/resolve/main/wav2vec2-chinese-base_fp16.safetensors?download=true"
 )
 
@@ -105,49 +105,49 @@ function provisioning_start() {
     provisioning_get_comfyui_nodes
     provisioning_get_pip_packages
     provisioning_get_models \
-        "/opt/ComfyUI/models/ckpt" \
+        "${WORKSPACE}/ComfyUI/models/ckpt" \
         "${CKPT_MODELS[@]}"
     provisioning_get_models \
-        "/opt/ComfyUI/models/unet" \
+        "${WORKSPACE}/ComfyUI/models/unet" \
         "${UNET_MODELS[@]}"
     provisioning_get_models \
-        "/opt/ComfyUI/models/lora" \
+        "${WORKSPACE}/ComfyUI/models/lora" \
         "${LORA_MODELS[@]}"
     provisioning_get_models \
-        "/opt/ComfyUI/models/controlnet" \
+        "${WORKSPACE}/ComfyUI/models/controlnet" \
         "${CONTROLNET_MODELS[@]}"
     provisioning_get_models \
-        "/opt/ComfyUI/models/vae" \
+        "${WORKSPACE}/ComfyUI/models/vae" \
         "${VAE_MODELS[@]}"
 	provisioning_get_models \
-        "/opt/ComfyUI/models/text_encoders" \
+        "${WORKSPACE}/ComfyUI/models/text_encoders" \
         "${TEXT_ENCODERS[@]}"
 	provisioning_get_models \
-        "/opt/ComfyUI/models/diffusion_models" \
+        "${WORKSPACE}/ComfyUI/models/diffusion_models" \
         "${DIFFUSION_MODELS[@]}"
     provisioning_get_models \
-        "/opt/ComfyUI/models/clip" \
+        "${WORKSPACE}/ComfyUI/models/clip" \
         "${CLIP_MODELS[@]}"
     provisioning_get_models \
-        "/opt/ComfyUI/models/clip_vision" \
+        "${WORKSPACE}/ComfyUI/models/clip_vision" \
         "${CLIP_VISION_MODELS[@]}"
     provisioning_get_models \
-        "/opt/ComfyUI/models/esrgan" \
+        "${WORKSPACE}/ComfyUI/models/esrgan" \
         "${ESRGAN_MODELS[@]}"
     provisioning_get_models \
-        "/opt/ComfyUI/models/wav2vec2" \
+        "${WORKSPACE}/ComfyUI/models/wav2vec2" \
         "${WAV2VEC2_MODELS[@]}"
 
     provisioning_print_end
 }
 
 function pip_install() {
-    pip install --no-cache-dir "$@"
+    uv pip install "$@"
 }
 
 function provisioning_get_apt_packages() {
     if [[ -n $APT_PACKAGES ]]; then
-            sudo apt-get install -y ${APT_PACKAGES[@]}
+            sudo apt install -y ${APT_PACKAGES[@]}
     fi
 }
 
@@ -160,7 +160,7 @@ function provisioning_get_pip_packages() {
 function provisioning_get_comfyui_nodes() {
     for repo in "${COMFYUI_NODES[@]}"; do
         dir="${repo##*/}"
-        path="/opt/ComfyUI/custom_nodes/${dir}"
+        path="${WORKSPACE}/ComfyUI/custom_nodes/${dir}"
         requirements="${path}/requirements.txt"
         if [[ -d $path ]]; then
             if [[ ${AUTO_UPDATE,,} != "false" ]]; then
@@ -184,7 +184,7 @@ function provisioning_get_default_workflow() {
     if [[ -n $DEFAULT_WORKFLOW ]]; then
         workflow_json=$(curl -s "$DEFAULT_WORKFLOW")
         if [[ -n $workflow_json ]]; then
-            echo "export const defaultGraph = $workflow_json;" > /opt/ComfyUI/web/scripts/defaultGraph.js
+            echo "export const defaultGraph = $workflow_json;" > ${WORKSPACE}/ComfyUI/web/scripts/defaultGraph.js
         fi
     fi
 }
