@@ -70,7 +70,7 @@ VAE_MODELS=(
 
 TEXT_ENCODERS=(
     # "model url to be downloaded to ${WORKSPACE}/ComfyUI/models/text_encoders"
-    "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors?download=true"
+    "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/text_encoders/umt5_xxl_fp16.safetensors?download=true"
 )
 
 CLIP_MODELS=(
@@ -111,7 +111,7 @@ function provisioning_start() {
         "${WORKSPACE}/ComfyUI/models/unet" \
         "${UNET_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/ComfyUI/models/lora" \
+        "${WORKSPACE}/ComfyUI/models/loras" \
         "${LORA_MODELS[@]}"
     provisioning_get_models \
         "${WORKSPACE}/ComfyUI/models/controlnet" \
