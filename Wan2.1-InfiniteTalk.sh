@@ -37,6 +37,9 @@ COMFYUI_NODES=(
     "https://github.com/kijai/ComfyUI-KJNodes"
     "https://github.com/adieyal/comfyui-dynamicprompts"
 
+    # TTS-Audio-Suite Nodes
+    "https://github.com/diodiogod/TTS-Audio-Suite"
+
     # Wan2.1 & InfiniteTalk Nodes
     "https://github.com/kijai/ComfyUI-WanVideoWrapper"
     "https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite"
